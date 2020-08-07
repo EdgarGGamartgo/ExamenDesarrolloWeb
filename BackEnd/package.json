@@ -1,0 +1,26 @@
+{
+  "name": "examen-desarrollo-web",
+  "version": "1.0.0",
+  "description": "This is just an exam for job validation",
+  "main": "index.js",
+  "scripts": {
+      "start": "node src/index.js",
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EdgarGGamartgo/ExamenDesarrolloWeb.git"
+  },
+  "author": "Edgar Gabriel Martinez Gonzalez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EdgarGGamartgo/ExamenDesarrolloWeb/issues"
+  },
+  "homepage": "https://github.com/EdgarGGamartgo/ExamenDesarrolloWeb#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^3.6.0",
+    "mongoose": "^5.9.27",
+    "validator": "^13.1.1"
+  }
+}
