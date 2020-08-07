@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import axios from 'axios'
-import { Redirect } from 'react-router'
+import Info from "./info.component"
+import { UserProvider } from './userContext'
+import {withTranslation} from "react-i18next";
 
-export default class Login extends Component {
+
+class Login extends Component {
 
     constructor(props) {
         super(props);
@@ -11,7 +14,8 @@ export default class Login extends Component {
             userId: '',
             password: '',
             success: true,
-            navigate: false
+            navigate: false,
+            userInfo: null
         };
     }
 
@@ -30,14 +34,17 @@ export default class Login extends Component {
             .then(res => {
                 const data = res.data
                 console.log(data)
+                this.setState({ userInfo: data })
                 this.setState({ success: true })
                 this.setState({ navigate: true })
+
 
             })
             .catch((error) => {
                 console.log(error)
                 this.setState({ success: false })
                 this.setState({ navigate: false })
+                
 
 
             })
@@ -54,20 +61,24 @@ export default class Login extends Component {
     }
 
     render() {
-        const { userId, password, success, navigate } = this.state
+        const { userId, password, success, navigate, userInfo } = this.state
+        const { t, i18n } = this.props;
+
         if(success && !navigate) {
             return (
+            //     <button onClick={() => i18n.changeLanguage('en')}>en</button> 
                 <form onSubmit={this.submitHandler}>
-                    <h3>Sign In</h3>
+
+                    <h3>{t('welcome.login')}</h3>
     
                     <div className="form-group">
-                        <label>UserId</label>
-                        <input type="text" name="userId" value={userId} onChange={this.changeHandler} className="form-control" placeholder="Enter UserId" />
+                        <label>{t('welcome.userid')}</label>
+                        <input type="text" name="userId" value={userId} onChange={this.changeHandler} className="form-control"  />
                     </div>
     
                     <div className="form-group">
-                        <label>Password</label>
-                        <input type="password" name="password" value={password} onChange={this.changeHandler} className="form-control" placeholder="Enter password" />
+                        <label>{t('welcome.pass')}</label>
+                        <input type="password" name="password" value={password} onChange={this.changeHandler} className="form-control" />
                     </div>
     
                     {/* <div className="form-group">
@@ -77,7 +88,7 @@ export default class Login extends Component {
                         </div>
                     </div> */}
     
-                    <button type="submit" className="btn btn-primary btn-block">Submit</button>
+                    <button type="submit" className="btn btn-primary btn-block">{t('welcome.submit')}</button>
                     {/* <p className="forgot-password text-right">
                         Forgot <a href="#">password?</a>
                     </p> */}
@@ -86,12 +97,15 @@ export default class Login extends Component {
         } else if (!success && !navigate){
             return (
                 <form onSubmit={this.submitHandlerTwo}>
-                    <button type="submit" className="btn btn-primary btn-block">Wrong credentials, try again.</button>
+                    <button type="submit" className="btn btn-primary btn-block">{t('welcome.error')}</button>
                 </form>
             )
         } else if (navigate) {
-            return <Redirect to="/info-user" push={true} />
+            
+            return <UserProvider value={userInfo} ><Info/></UserProvider>
         }
    
     }
 }
+
+export default withTranslation('common')(Login);

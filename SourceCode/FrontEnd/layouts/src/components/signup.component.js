@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from 'axios'
+import {withTranslation} from "react-i18next";
 
-export default class SignUp extends Component {
+class SignUp extends Component {
 
     constructor(props) {
         super(props);
@@ -71,33 +72,35 @@ export default class SignUp extends Component {
 
     render() {
         const { name, password, email, success } = this.state
+        const { t } = this.props;
+
         if(success) {
             
             return ( 
 
         
                 <form onSubmit={this.submitHandler}>
-                    <h3>Sign Up</h3>
+                    <h3>{t('welcome.signup')}</h3>
     
                     <div className="form-group">
-                        <label>UserId</label>
-                        <input type="text" name="name" value={name} onChange={this.changeHandler}  className="form-control" placeholder="UserId" />
+                        <label>{t('welcome.userid')}</label>
+                        <input type="text" name="name" value={name} onChange={this.changeHandler}  className="form-control"  />
                     </div>
     
                     <div className="form-group">
-                        <label>Email address</label>
-                        <input type="email" name="email" value={email} onChange={this.changeHandler} className="form-control" placeholder="Enter email" />
+                        <label>{t('welcome.email')}</label>
+                        <input type="email" name="email" value={email} onChange={this.changeHandler} className="form-control"  />
                     </div>
     
                     <div className="form-group">
-                        <label>Password</label>
-                        <input type="password" name="password" value={password} onChange={this.changeHandler} className="form-control" placeholder="Enter password" />
+                        <label>{t('welcome.pass')}</label>
+                        <input type="password" name="password" value={password} onChange={this.changeHandler} className="form-control"  />
                     </div>
     
-                    <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
-                    <p className="forgot-password text-right">
+                    <button type="submit" className="btn btn-primary btn-block">{t('welcome.signup')}</button>
+                    {/* <p className="forgot-password text-right">
                         Already registered <a href="#">sign in?</a>
-                    </p>
+                    </p> */}
                 </form> 
             );
 
@@ -106,7 +109,7 @@ export default class SignUp extends Component {
             return (
 
                 <div>
-                    User successfully registered!
+                    {t('welcome.success')}
                 </div>
 
             )
@@ -115,3 +118,5 @@ export default class SignUp extends Component {
       
     }
 }
+
+export default withTranslation('common')(SignUp);
