@@ -1,0 +1,14 @@
+{
+  "name": "script-db",
+  "version": "1.0.1",
+  "description": "DB Set up",
+  "main": "ScriptDB.js",
+  "scripts": {
+    "start": "node ScriptDB.js"
+  },
+  "author": "Edgar Gabriel Martinez Gonzalez",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.6.0"
+  }
+}
